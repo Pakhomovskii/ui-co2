@@ -94,7 +94,7 @@ with tabs[2]:
         waste_kg = st.number_input(
             "Waste (kg)", value=0.0
         )  # Default to 0.0
-        recycled_or_composted_kg = st.number_input("Recycled or Composted (kg)", value=0.0)
+        recycled_or_composted_kg = st.number_input("Recycled or Composted %", value=0.0)
         waste_category_enum = st.text_input("Waste Category (only recyclable)", value="recyclable")
         city = st.text_input("City for waste sector")
         company_name = st.text_input("Company Name waste sector")
