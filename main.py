@@ -36,7 +36,7 @@ with tabs[0]:
     st.markdown("Press the button below to create an UUID that you can use for the next report. You can use "
                 "UUID to update the previous report as well.")
     if st.button("Generate Report"):
-        response = requests.get("http://localhost:8080/register")
+        response = requests.get("http://64.226.89.177:80/register")
 
         if response.status_code == 201:
             report_data = response.json()
@@ -71,7 +71,7 @@ with tabs[1]:
                 "company_name": company_name,
             }
 
-            response = requests.post("http://localhost:8080/create-energy-usage", json=data)
+            response = requests.post("http://64.226.89.177:80/create-energy-usage", json=data)
 
             if response.status_code == 200:
                 st.success("Data submitted successfully!")
@@ -85,7 +85,7 @@ with tabs[1]:
 
     if st.button("Show All Reports energy usage"):
         data = {"company_name": company_name_for_reports}
-        response = requests.get("http://localhost:8080/get-energy-usage", params=data)
+        response = requests.get("http://64.226.89.177:80/get-energy-usage", params=data)
         if response.status_code == 200:
             reports_data = response.json()["data"]
             if reports_data:
@@ -126,7 +126,7 @@ with tabs[2]:
                 "company_name": company_name,
             }
 
-            response = requests.post("http://localhost:8080/create-waste-sector", json=data)
+            response = requests.post("http://64.226.89.177:80/create-waste-sector", json=data)
 
             if response.status_code == 200:
                 st.success("Data submitted successfully!")
@@ -139,7 +139,7 @@ with tabs[2]:
 
     if st.button("Show All Reports for waste sector"):
         data = {"company_name": company_name_for_reports}
-        response = requests.get("http://localhost:8080/get-waste-sector", params=data)
+        response = requests.get("http://64.226.89.177:80/get-waste-sector", params=data)
         if response.status_code == 200:
             reports_data = response.json()["data"]
             if reports_data:
@@ -180,7 +180,7 @@ with tabs[3]:
                 "company_name": company_name,
             }
 
-            response = requests.post("http://localhost:8080/create-business-travel", json=data)
+            response = requests.post("http://64.226.89.177:80/create-business-travel", json=data)
 
             if response.status_code == 200:
                 st.success("Data submitted successfully!")
@@ -195,7 +195,7 @@ with tabs[3]:
 
     if st.button("Show All Reports for business sector"):
         data = {"company_name": company_name_for_reports}
-        response = requests.get("http://localhost:8080/get-business-travel", params=data)
+        response = requests.get("http://64.226.89.177:80/get-business-travel", params=data)
         if response.status_code == 200:
             reports_data = response.json()["data"]
             if reports_data:
@@ -262,7 +262,7 @@ with (tabs[4]):
     if st.button("Fetch Records and Generate Recommendations"):
         with st.spinner("Processing data..."):
             data = {"company_name": company_name_for_recommendation}
-            response = requests.get("http://localhost:8080/give-recommendation", params=data)
+            response = requests.get("http://64.226.89.177:80/give-recommendation", params=data)
 
             if response.status_code == 200:
                 recommendations_data = response.json()
