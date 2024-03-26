@@ -10,8 +10,6 @@ import streamlit as st
 import requests
 from fpdf import FPDF
 
-# Session State Initialization
-# Helper Functions
 def safe_float_conversion(value):
     try:
         return float(value)
@@ -149,7 +147,7 @@ with tabs[2]:
                     st.write(f"City : {report['city']}")
                     st.write(f"Carbon Footprint: {report['carbon_footprint']} kg")
                     st.write(f"Created : {report['created_at']}")
-                    st.write("-" * 20)  # Separator
+                    st.write("-" * 20) 
             else:
                 st.write("No reports found for this company.")
         else:
@@ -215,13 +213,13 @@ with tabs[3]:
 ############# ANALYSE ###########
 ################################################################################################
 def create_pdf_report(company_name, recommendations_data, chart_figure):
-        logger = logging.getLogger(__name__)  # Create a logger
-        logger.setLevel(logging.DEBUG)  # Set to DEBUG mode for detailed output
+        logger = logging.getLogger(__name__) 
+        logger.setLevel(logging.DEBUG) 
 
         pdf = FPDF()
         pdf.add_page()
         pdf.add_font('ArialUnicode', fname='./ArialUnicode.ttf')
-        pdf.set_font("ArialUnicode", size=12)  # Normal text
+        pdf.set_font("ArialUnicode", size=12)  
 
         # Title
         pdf.cell(200, 10, text=f"{company_name} Carbon Footprint Report", new_x="LMARGIN", new_y="NEXT", align="C")
@@ -230,27 +228,27 @@ def create_pdf_report(company_name, recommendations_data, chart_figure):
         # Recommendations
         pdf.ln(10)
 
-        pdf.set_font("Helvetica", size=12)  # Instead of 'Arial'
+        pdf.set_font("Helvetica", size=12)  
         pdf.cell(200, 10, text="...", align="C", new_x="LMARGIN", new_y="NEXT")  # Instead of ln=...
 
-        pdf.set_font("ArialUnicode", size=12)  # Normal text
+        pdf.set_font("ArialUnicode", size=12)  
 
         logger.debug("Starting recommendations text section")
         try:
-            recommendation_text = recommendations_data['data']['recommendation']  # Extract the text
-            recommendations_encoded = recommendation_text.encode('utf-8')  # Encode the extracted text
+            recommendation_text = recommendations_data['data']['recommendation'] 
+            recommendations_encoded = recommendation_text.encode('utf-8') 
             pdf.multi_cell(0, 5, recommendations_encoded.decode('utf-8'))
         except Exception as e:
             logger.error(f"Error encoding recommendations: {e}")
 
         # Diagram
         pdf.ln(10)
-        pdf.set_font("ArialUnicode", size=12)  # Removed 'B' for bold
+        pdf.set_font("ArialUnicode", size=12) 
 
         pdf.cell(200, 10, text="Carbon Footprint Distribution", new_x="LMARGIN", new_y="NEXT", align="L")
 
         buffer = BytesIO()
-        chart_figure.write_image(buffer, format='png')  # Potentially add 'engine' parameter
+        chart_figure.write_image(buffer, format='png') 
         pdf.image(buffer, x=40, y=pdf.get_y() + 10, w=120)
         pdf.output(f"carbon_report_for_{company_name}.pdf")
 
@@ -301,7 +299,7 @@ with (tabs[4]):
                     labels = ["business_travel", "energy_usage", "waste_sector"]
 
 
-                    num_segments = 3  # Number of segments per slice
+                    num_segments = 3 
                     colors = ['#E94C3C', '#3D9970', '#0074D9']
                     all_labels = []
                     all_values = []
@@ -318,7 +316,7 @@ with (tabs[4]):
 
                     st.plotly_chart(fig)
 
-                    st.write("Download DPF and close the report")  # Debugging
+                    st.write("Download DPF and close the report")  
 
                     create_pdf_report(company_name_for_recommendation, recommendations_data, fig)
                     with open(f"carbon_report_for_{company_name_for_recommendation}.pdf", "rb") as pdf_file:
