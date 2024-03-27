@@ -316,7 +316,7 @@ with (tabs[4]):
 
                     st.plotly_chart(fig)
 
-                    st.write("Download DPF and close the report")  
+                    st.write("Download PDF and close the report")  
 
                     create_pdf_report(company_name_for_recommendation, recommendations_data, fig)
                     with open(f"carbon_report_for_{company_name_for_recommendation}.pdf", "rb") as pdf_file:
